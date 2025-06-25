@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>VipleManagement</RootNamespace>
+    <AssemblyName>VipleManagement</AssemblyName>
+    <ApplicationIcon>viple_ressources\images\viple.ico</ApplicationIcon>
+    <Company>Viple SAS</Company>
+    <Product>Viple Management System</Product>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Description>Application de gestion des services Viple</Description>
+    <Copyright>© 2025 Viple SAS. Tous droits réservés.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="viple_ressources\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Forms\Clients\" />
+    <Folder Include="Forms\Services\" />
+    <Folder Include="Forms\Links\" />
+    <Folder Include="Core\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="viple_ressources\images\" />
+    <Folder Include="viple_ressources\languages\" />
+    <Folder Include="vipledata\" />
+  </ItemGroup>
+</Project>

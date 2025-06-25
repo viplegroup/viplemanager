@@ -1,0 +1,13 @@
+# Viple Files Log - Créé par Viple SAS
+# Historique des modifications et créations de fichiers
+
+#Fichiers créés
+- Fichier : Program.cs créé le 25/06/2025 à 22:57
+- Fichier : LoginForm.cs créé le 25/06/2025 à 22:57
+- Fichier : AuthenticationManager.cs créé le 25/06/2025 à 22:57
+- Fichier : LogManager.cs créé le 25/06/2025 à 22:57
+- Fichier : MainForm.cs créé le 25/06/2025 à 22:57
+- Fichier : fr-FR.vff créé le 25/06/2025 à 22:57
+- Fichier : elioslogs-files.txt créé le 25/06/2025 à 22:57
+
+#Fichiers modifiés

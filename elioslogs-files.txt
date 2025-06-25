@@ -1,5 +1,6 @@
 # Viple Files Log - Créé par Viple SAS
 # Historique des modifications et créations de fichiers
+# Date: 25/06/2025
 
 #Fichiers créés
 - Fichier : Program.cs créé le 25/06/2025 à 22:57
@@ -9,5 +10,31 @@
 - Fichier : MainForm.cs créé le 25/06/2025 à 22:57
 - Fichier : fr-FR.vff créé le 25/06/2025 à 22:57
 - Fichier : elioslogs-files.txt créé le 25/06/2025 à 22:57
+- Fichier : Client.cs créé le 25/06/2025 à 23:10
+- Fichier : Service.cs créé le 25/06/2025 à 23:10
+- Fichier : Product.cs créé le 25/06/2025 à 23:10
+- Fichier : ClientManager.cs créé le 25/06/2025 à 23:15
+- Fichier : ServiceManager.cs créé le 25/06/2025 à 23:15
+- Fichier : ProductManager.cs créé le 25/06/2025 à 23:15
+- Fichier : ClientsListForm.cs créé le 25/06/2025 à 23:20
+- Fichier : ClientEditForm.cs créé le 25/06/2025 à 23:20
+- Fichier : ServicesStatusForm.cs créé le 25/06/2025 à 23:20
+- Fichier : ServiceCatalogForm.cs créé le 25/06/2025 à 23:30
+- Fichier : ServiceEditForm.cs créé le 25/06/2025 à 23:30
+- Fichier : ServiceDetailForm.cs créé le 25/06/2025 à 23:35
+- Fichier : LinksForm.cs créé le 25/06/2025 à 23:40
+- Fichier : VipleManagement.csproj créé le 25/06/2025 à 23:45
+- Fichier : launch.json créé le 25/06/2025 à 23:45
+- Fichier : tasks.json créé le 25/06/2025 à 23:45
+- Fichier : settings.json créé le 25/06/2025 à 23:45
+- Fichier : GlobalUsings.cs créé le 25/06/2025 à 23:45
+- Fichier : omnisharp.json créé le 25/06/2025 à 23:45
+- Fichier : README.md créé le 25/06/2025 à 23:45
+- Fichier : setup.sh créé le 25/06/2025 à 23:45
+- Fichier : setup.bat créé le 25/06/2025 à 23:45
 
 #Fichiers modifiés
+- Fichier : elioslogs-files.txt modifié le 25/06/2025 à 23:50
+- Fichier : README.md modifié le 25/06/2025 à 23:15 
+- Fichier : Program.cs modifié le 25/06/2025 à 23:25
+- Fichier : MainForm.cs modifié le 25/06/2025 à 23:25

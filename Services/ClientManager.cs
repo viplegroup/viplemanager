@@ -1,38 +1,93 @@
-// Viple FilesVersion - ClientManager 1.0.0 - Date 25/06/2025
+// Viple FilesVersion - ClientManager 1.0.1 - Date 26/06/2025
 // Application créée par Viple SAS
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using VipleManagement.Core;
 using VipleManagement.Models;
 
 namespace VipleManagement.Services
 {
     public class ClientManager
     {
+        private static readonly string ClientsFilePath = Path.Combine("vipledata", "clients.vff");
         private List<Client> clients;
-        private string clientsFilePath = Path.Combine("vipledata", "clients.vff");
 
         public ClientManager()
         {
-            clients = new List<Client>();
             LoadClients();
+        }
+
+        public List<Client> GetAllClients()
+        {
+            return new List<Client>(clients);
+        }
+
+        public List<Client> GetActiveClients()
+        {
+            return clients.Where(c => c.IsActive).ToList();
+        }
+
+        public List<Client> GetClientsByType(ClientType clientType)
+        {
+            return clients.Where(c => c.Type == clientType).ToList();
+        }
+
+        public List<Client> GetClientsWithService(string serviceId)
+        {
+            return clients.Where(c => c.SubscribedServiceIds.Contains(serviceId)).ToList();
+        }
+
+        public List<Client> SearchClients(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+                return GetAllClients();
+
+            searchText = searchText.ToLower();
+            return clients.Where(c =>
+                c.Name.ToLower().Contains(searchText) ||
+                c.Email.ToLower().Contains(searchText) ||
+                c.Phone.Contains(searchText) ||
+                c.ContactPerson.ToLower().Contains(searchText) ||
+                c.City.ToLower().Contains(searchText) ||
+                c.Notes.ToLower().Contains(searchText)
+            ).ToList();
+        }
+
+        public Client GetClientById(string clientId)
+        {
+            return clients.FirstOrDefault(c => c.Id == clientId);
         }
 
         public bool AddClient(Client client)
         {
             try
             {
+                // Vérifier si un client avec le même nom existe déjà
+                if (clients.Any(c => c.Name.Equals(client.Name, StringComparison.OrdinalIgnoreCase)))
+                {
+                    return false;
+                }
+
+                // Si l'ID n'est pas défini, en générer un nouveau
+                if (string.IsNullOrEmpty(client.Id))
+                {
+                    client.Id = Guid.NewGuid().ToString();
+                }
+
                 clients.Add(client);
                 SaveClients();
-                LogManager.LogAction($"Client ajouté: {client.Name}");
+                LogManager.LogAction($"Client ajouté : {client.Name}");
+
                 return true;
             }
             catch (Exception ex)
             {
-                LogManager.LogAction($"Erreur lors de l'ajout du client: {ex.Message}");
+                LogManager.LogError($"Erreur lors de l'ajout du client : {ex.Message}", ex);
                 return false;
             }
         }
@@ -41,21 +96,21 @@ namespace VipleManagement.Services
         {
             try
             {
-                Client existingClient = clients.FirstOrDefault(c => c.Id == client.Id);
-                if (existingClient != null)
+                int index = clients.FindIndex(c => c.Id == client.Id);
+                if (index < 0)
                 {
-                    int index = clients.IndexOf(existingClient);
-                    client.LastModified = DateTime.Now;
-                    clients[index] = client;
-                    SaveClients();
-                    LogManager.LogAction($"Client mis à jour: {client.Name}");
-                    return true;
+                    return false;
                 }
-                return false;
+
+                clients[index] = client;
+                SaveClients();
+                LogManager.LogAction($"Client mis à jour : {client.Name}");
+
+                return true;
             }
             catch (Exception ex)
             {
-                LogManager.LogAction($"Erreur lors de la mise à jour du client: {ex.Message}");
+                LogManager.LogError($"Erreur lors de la mise à jour du client : {ex.Message}", ex);
                 return false;
             }
         }
@@ -64,69 +119,59 @@ namespace VipleManagement.Services
         {
             try
             {
-                Client clientToDelete = clients.FirstOrDefault(c => c.Id == clientId);
-                if (clientToDelete != null)
+                Client client = GetClientById(clientId);
+                if (client == null)
                 {
-                    clients.Remove(clientToDelete);
-                    SaveClients();
-                    LogManager.LogAction($"Client supprimé: {clientToDelete.Name}");
-                    return true;
+                    return false;
                 }
-                return false;
+
+                clients.RemoveAll(c => c.Id == clientId);
+                SaveClients();
+                LogManager.LogAction($"Client supprimé : {client.Name}");
+
+                return true;
             }
             catch (Exception ex)
             {
-                LogManager.LogAction($"Erreur lors de la suppression du client: {ex.Message}");
+                LogManager.LogError($"Erreur lors de la suppression du client : {ex.Message}", ex);
                 return false;
             }
         }
 
-        public Client GetClientById(string clientId)
+        public async Task<List<Client>> GetClientsWithOutdatedPaymentsAsync()
         {
-            return clients.FirstOrDefault(c => c.Id == clientId);
-        }
-
-        public List<Client> GetAllClients()
-        {
-            return clients;
-        }
-
-        public List<Client> SearchClients(string searchTerm)
-        {
-            searchTerm = searchTerm.ToLower();
-            return clients.Where(c =>
-                c.Name.ToLower().Contains(searchTerm) ||
-                c.ContactPerson.ToLower().Contains(searchTerm) ||
-                c.Email.ToLower().Contains(searchTerm) ||
-                c.Phone.Contains(searchTerm) ||
-                c.City.ToLower().Contains(searchTerm)
-            ).ToList();
+            return await Task.Run(() => 
+            {
+                return clients.Where(c => 
+                    c.PaymentStatus == PaymentStatus.Late || 
+                    c.PaymentStatus == PaymentStatus.VeryLate).ToList();
+            });
         }
 
         private void LoadClients()
         {
             try
             {
-                if (File.Exists(clientsFilePath))
+                Directory.CreateDirectory(Path.GetDirectoryName(ClientsFilePath));
+
+                if (File.Exists(ClientsFilePath))
                 {
-                    using (FileStream fs = new FileStream(clientsFilePath, FileMode.Open))
+                    using (StreamReader reader = new StreamReader(ClientsFilePath))
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        clients = (List<Client>)formatter.Deserialize(fs);
+                        XmlSerializer serializer = new XmlSerializer(typeof(List<Client>));
+                        clients = (List<Client>)serializer.Deserialize(reader);
                     }
                 }
                 else
                 {
-                    // Créer quelques clients de test si le fichier n'existe pas
-                    CreateSampleClients();
+                    clients = CreateSampleClients();
                     SaveClients();
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogAction($"Erreur lors du chargement des clients: {ex.Message}");
+                LogManager.LogError($"Erreur lors du chargement des clients : {ex.Message}", ex);
                 clients = new List<Client>();
-                CreateSampleClients();
             }
         }
 
@@ -134,87 +179,173 @@ namespace VipleManagement.Services
         {
             try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(clientsFilePath));
-                using (FileStream fs = new FileStream(clientsFilePath, FileMode.Create))
+                Directory.CreateDirectory(Path.GetDirectoryName(ClientsFilePath));
+
+                using (StreamWriter writer = new StreamWriter(ClientsFilePath))
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(fs, clients);
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Client>));
+                    serializer.Serialize(writer, clients);
                 }
+
                 UpdateFilesLog("clients.vff", "modifiée");
             }
             catch (Exception ex)
             {
-                LogManager.LogAction($"Erreur lors de la sauvegarde des clients: {ex.Message}");
+                LogManager.LogError($"Erreur lors de l'enregistrement des clients : {ex.Message}", ex);
             }
         }
 
-        private void CreateSampleClients()
+        private List<Client> CreateSampleClients()
         {
-            clients.Add(new Client
+            List<Client> sampleClients = new List<Client>
             {
-                Name = "Entreprise ABC",
-                Address = "123 Avenue Principale",
-                City = "Paris",
-                PostalCode = "75001",
-                Email = "contact@abc.fr",
-                Phone = "01 23 45 67 89",
-                ContactPerson = "Jean Dupont",
-                Notes = "Client premium"
-            });
+                new Client
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Entreprise ABC",
+                    Address = "123 Avenue Principale",
+                    City = "Paris",
+                    PostalCode = "75001",
+                    Email = "contact@abc.fr",
+                    Phone = "01 23 45 67 89",
+                    ContactPerson = "Jean Dupont",
+                    Type = ClientType.Standard,
+                    Notes = "Client fidèle depuis 2022",
+                    SubscribedServiceIds = new List<string>(),
+                    TotalMonthlyFees = 120.00m,
+                    LastInvoiceDate = DateTime.Now.AddMonths(-1),
+                    PaymentStatus = PaymentStatus.UpToDate
+                },
+                new Client
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Mairie de Lyon",
+                    Address = "1 Place de la Mairie",
+                    City = "Lyon",
+                    PostalCode = "69001",
+                    Email = "contact@mairie-lyon.fr",
+                    Phone = "04 56 78 90 12",
+                    ContactPerson = "Marie Martin",
+                    Type = ClientType.Government,
+                    Notes = "Contrat renouvelable annuellement",
+                    SubscribedServiceIds = new List<string>(),
+                    TotalMonthlyFees = 450.00m,
+                    LastInvoiceDate = DateTime.Now.AddMonths(-2),
+                    PaymentStatus = PaymentStatus.PendingPayment
+                },
+                new Client
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "StartupNext",
+                    Address = "42 Rue de l'Innovation",
+                    City = "Bordeaux",
+                    PostalCode = "33000",
+                    Email = "hello@startupnext.io",
+                    Phone = "05 67 89 01 23",
+                    ContactPerson = "Hugo Tech",
+                    Type = ClientType.Premium,
+                    Notes = "Startup en forte croissance, sensible aux prix",
+                    SubscribedServiceIds = new List<string>(),
+                    TotalMonthlyFees = 299.99m,
+                    LastInvoiceDate = DateTime.Now.AddDays(-15),
+                    PaymentStatus = PaymentStatus.UpToDate
+                }
+            };
 
-            clients.Add(new Client
-            {
-                Name = "Société XYZ",
-                Address = "456 Rue Secondaire",
-                City = "Lyon",
-                PostalCode = "69001",
-                Email = "info@xyz.fr",
-                Phone = "04 56 78 90 12",
-                ContactPerson = "Marie Martin",
-                Notes = "Nouveau client"
-            });
-
-            clients.Add(new Client
-            {
-                Name = "Tech Solutions",
-                Address = "789 Boulevard Tertiaire",
-                City = "Marseille",
-                PostalCode = "13001",
-                Email = "support@techsolutions.fr",
-                Phone = "04 91 23 45 67",
-                ContactPerson = "Pierre Dubois",
-                Notes = "Client avec contrat de maintenance"
-            });
+            return sampleClients;
         }
 
         private void UpdateFilesLog(string fileName, string action)
         {
-            string filesLogPath = "elioslogs-files.txt";
-            string entry = $"- Fichier : {fileName} {action} le {DateTime.Now:dd/MM/yyyy} à {DateTime.Now:HH:mm}";
-            
-            // Vérifier si une entrée pour ce fichier existe déjà aujourd'hui
-            if (File.Exists(filesLogPath))
+            try
             {
-                string[] lines = File.ReadAllLines(filesLogPath);
-                bool entryExists = false;
+                string logFilePath = "elioslogs-files.txt";
+                string logEntry = $"- Fichier : {fileName} {action} le {DateTime.Now:dd/MM/yyyy} à {DateTime.Now:HH:mm}";
                 
-                foreach (string line in lines)
+                if (File.Exists(logFilePath))
                 {
-                    if (line.Contains(fileName) && line.Contains(DateTime.Now.ToString("dd/MM/yyyy")))
+                    string[] lines = File.ReadAllLines(logFilePath);
+                    bool modifiedSection = false;
+                    List<string> newLines = new List<string>();
+                    
+                    foreach (string line in lines)
                     {
-                        entryExists = true;
-                        break;
+                        newLines.Add(line);
+                        if (line.Contains("#Fichiers modifiés") && action == "modifiée")
+                        {
+                            newLines.Add(logEntry);
+                            modifiedSection = true;
+                        }
+                        else if (line.Contains("#Fichiers créés") && action == "créé")
+                        {
+                            newLines.Add(logEntry);
+                            modifiedSection = true;
+                        }
                     }
-                }
-                
-                if (!entryExists)
-                {
-                    File.AppendAllText(filesLogPath, entry + Environment.NewLine);
+                    
+                    if (!modifiedSection)
+                    {
+                        newLines.Add(action == "modifiée" ? "#Fichiers modifiés" : "#Fichiers créés");
+                        newLines.Add(logEntry);
+                    }
+                    
+                    File.WriteAllLines(logFilePath, newLines);
                 }
             }
-            else
+            catch (Exception)
             {
-                File.AppendAllText(filesLogPath, entry + Environment.NewLine);
+                // Ignorer les erreurs de journalisation
+            }
+        }
+
+        // Méthodes supplémentaires pour la gestion avancée des clients
+        
+        public List<Client> GetClientsDueForFollowUp()
+        {
+            return clients.Where(c => c.NextFollowUpDate.HasValue && c.NextFollowUpDate.Value.Date <= DateTime.Today).ToList();
+        }
+        
+        public void UpdateClientPaymentStatus(string clientId, PaymentStatus newStatus)
+        {
+            Client client = GetClientById(clientId);
+            if (client != null)
+            {
+                client.PaymentStatus = newStatus;
+                SaveClients();
+                LogManager.LogAction($"Statut de paiement mis à jour pour {client.Name} : {newStatus}");
+            }
+        }
+        
+        public void AssignClientToUser(string clientId, string userId)
+        {
+            Client client = GetClientById(clientId);
+            if (client != null)
+            {
+                client.AssignedToUserId = userId;
+                SaveClients();
+                LogManager.LogAction($"Client {client.Name} assigné à l'utilisateur {userId}");
+            }
+        }
+        
+        public void ScheduleFollowUp(string clientId, DateTime followUpDate)
+        {
+            Client client = GetClientById(clientId);
+            if (client != null)
+            {
+                client.NextFollowUpDate = followUpDate;
+                SaveClients();
+                LogManager.LogAction($"Suivi programmé pour {client.Name} le {followUpDate:dd/MM/yyyy}");
+            }
+        }
+        
+        public void RecordContactWithClient(string clientId)
+        {
+            Client client = GetClientById(clientId);
+            if (client != null)
+            {
+                client.LastContactDate = DateTime.Now;
+                SaveClients();
+                LogManager.LogAction($"Contact enregistré avec {client.Name}");
             }
         }
     }

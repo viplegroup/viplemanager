@@ -1,543 +1,616 @@
-// Viple FilesVersion - ServiceEditForm 1.0.0 - Date 25/06/2025
+// Viple FilesVersion - ServiceEditForm 1.0.1 - Date 26/06/2025
 // Application créée par Viple SAS
 
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using VipleManagement.Models;
 using VipleManagement.Services;
+using VipleManagement.Core;
 
 namespace VipleManagement.Forms.Services
 {
-    public partial class ServiceEditForm : Form
+    public class ServiceEditForm : Form
     {
+        private Service service;
         private ServiceManager serviceManager;
         private ProductManager productManager;
-        private Service service;
         private bool isNewService;
         
         private TextBox txtName;
         private TextBox txtDescription;
         private ComboBox cmbCategory;
         private NumericUpDown nudMonthlyFee;
-        private ComboBox cmbStatus;
+        private CheckBox chkActive;
         private CheckBox chkRequiresMonitoring;
         private TextBox txtMonitoringUrl;
-        private ListBox lstSelectedProducts;
+        private ListBox lstProducts;
         private Button btnAddProduct;
         private Button btnRemoveProduct;
         private Button btnSave;
         private Button btnCancel;
-
+        
+        // Liste temporaire pour stocker les produits associés au service
+        private List<Product> associatedProducts = new List<Product>();
+        
         public ServiceEditForm(Service service = null)
         {
-            this.service = service ?? new Service();
-            isNewService = service == null;
-            
             serviceManager = new ServiceManager();
             productManager = new ProductManager();
             
+            if (service != null)
+            {
+                // Modifier un service existant
+                this.service = new Service
+                {
+                    Id = service.Id,
+                    Name = service.Name,
+                    Description = service.Description,
+                    Category = service.Category,
+                    Status = service.Status,
+                    IsActive = service.IsActive,
+                    RequiresMonitoring = service.RequiresMonitoring,
+                    MonitoringUrl = service.MonitoringUrl,
+                    MonthlyFee = service.MonthlyFee,
+                    LastChecked = service.LastChecked,
+                    LastStatusMessage = service.LastStatusMessage,
+                    ProductIds = new List<string>(service.ProductIds ?? new List<string>()),
+                    CreationDate = service.CreationDate
+                };
+                isNewService = false;
+            }
+            else
+            {
+                // Créer un nouveau service
+                this.service = new Service();
+                isNewService = true;
+            }
+            
+            // Charger les produits associés
+            LoadAssociatedProducts();
+            
             InitializeComponent();
-            SetupUI();
             PopulateForm();
         }
-
+        
+        private void LoadAssociatedProducts()
+        {
+            associatedProducts.Clear();
+            
+            if (service.ProductIds != null)
+            {
+                foreach (string productId in service.ProductIds)
+                {
+                    Product product = productManager.GetProductById(productId);
+                    if (product != null)
+                    {
+                        associatedProducts.Add(product);
+                    }
+                }
+            }
+        }
+        
         private void InitializeComponent()
         {
-            this.Size = new Size(550, 580);
-            this.Text = isNewService ? "Viple - Ajouter un service" : "Viple - Modifier un service";
+            this.Size = new Size(600, 650);
+            this.Text = isNewService ? "Viple - Nouveau service" : $"Viple - Modifier {service.Name}";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.BackColor = Color.FromArgb(45, 45, 48);
             this.ForeColor = Color.White;
-            this.AutoScroll = true;
-        }
-
-        private void SetupUI()
-        {
-            // Titre principal
-            Label lblTitle = new Label
+            
+            Panel mainPanel = new Panel
             {
-                Text = isNewService ? "Nouveau service" : "Modifier le service",
-                Location = new Point(20, 20),
-                Size = new Size(300, 30),
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                ForeColor = Color.White
+                Dock = DockStyle.Fill,
+                Padding = new Padding(20)
             };
-
-            // Nom du service
+            
+            // Informations générales
+            GroupBox grpGeneral = new GroupBox
+            {
+                Text = "Informations générales",
+                Location = new Point(20, 20),
+                Size = new Size(540, 200),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(37, 37, 38)
+            };
+            
             Label lblName = new Label
             {
-                Text = "Nom du service:",
-                Location = new Point(20, 60),
-                Size = new Size(120, 20),
+                Text = "Nom *",
+                Location = new Point(20, 30),
+                Size = new Size(100, 20),
                 ForeColor = Color.White
             };
-
+            
             txtName = new TextBox
             {
-                Location = new Point(160, 60),
-                Size = new Size(350, 20),
+                Location = new Point(150, 30),
+                Size = new Size(370, 20),
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle
             };
-
-            // Description
-            Label lblDescription = new Label
-            {
-                Text = "Description:",
-                Location = new Point(20, 90),
-                Size = new Size(120, 20),
-                ForeColor = Color.White
-            };
-
-            txtDescription = new TextBox
-            {
-                Location = new Point(160, 90),
-                Size = new Size(350, 60),
-                Multiline = true,
-                BackColor = Color.FromArgb(51, 51, 55),
-                ForeColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Catégorie
+            
             Label lblCategory = new Label
             {
-                Text = "Catégorie:",
-                Location = new Point(20, 160),
-                Size = new Size(120, 20),
+                Text = "Catégorie *",
+                Location = new Point(20, 60),
+                Size = new Size(100, 20),
                 ForeColor = Color.White
             };
-
+            
             cmbCategory = new ComboBox
             {
-                Location = new Point(160, 160),
-                Size = new Size(200, 20),
-                DropDownStyle = ComboBoxStyle.DropDownList,
+                Location = new Point(150, 60),
+                Size = new Size(370, 20),
                 BackColor = Color.FromArgb(51, 51, 55),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                DropDownStyle = ComboBoxStyle.DropDownList
             };
-
             foreach (ServiceCategory category in Enum.GetValues(typeof(ServiceCategory)))
             {
                 cmbCategory.Items.Add(category);
             }
-
-            // Tarif mensuel
+            
+            Label lblDescription = new Label
+            {
+                Text = "Description",
+                Location = new Point(20, 90),
+                Size = new Size(100, 20),
+                ForeColor = Color.White
+            };
+            
+            txtDescription = new TextBox
+            {
+                Location = new Point(150, 90),
+                Size = new Size(370, 60),
+                BackColor = Color.FromArgb(51, 51, 55),
+                ForeColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Multiline = true
+            };
+            
             Label lblMonthlyFee = new Label
             {
-                Text = "Tarif mensuel (€):",
-                Location = new Point(20, 190),
+                Text = "Prix mensuel (€) *",
+                Location = new Point(20, 160),
                 Size = new Size(120, 20),
                 ForeColor = Color.White
             };
-
+            
             nudMonthlyFee = new NumericUpDown
             {
-                Location = new Point(160, 190),
-                Size = new Size(100, 20),
+                Location = new Point(150, 160),
+                Size = new Size(120, 20),
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 Minimum = 0,
                 Maximum = 10000,
                 DecimalPlaces = 2,
-                Increment = 0.01m
+                Increment = 0.5m
             };
-
-            // Statut
-            Label lblStatus = new Label
+            nudMonthlyFee.Controls[0].BackColor = Color.FromArgb(51, 51, 55); // Boutons spin
+            
+            grpGeneral.Controls.AddRange(new Control[] {
+                lblName, txtName, 
+                lblCategory, cmbCategory,
+                lblDescription, txtDescription,
+                lblMonthlyFee, nudMonthlyFee
+            });
+            
+            // Paramètres
+            GroupBox grpSettings = new GroupBox
             {
-                Text = "Statut:",
-                Location = new Point(20, 220),
-                Size = new Size(120, 20),
-                ForeColor = Color.White
+                Text = "Paramètres",
+                Location = new Point(20, 230),
+                Size = new Size(540, 120),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(37, 37, 38)
             };
-
-            cmbStatus = new ComboBox
+            
+            chkActive = new CheckBox
             {
-                Location = new Point(160, 220),
-                Size = new Size(200, 20),
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.FromArgb(51, 51, 55),
-                ForeColor = Color.White
+                Text = "Service actif",
+                Location = new Point(20, 30),
+                Size = new Size(150, 20),
+                BackColor = Color.FromArgb(37, 37, 38),
+                ForeColor = Color.White,
+                Checked = true
             };
-
-            foreach (ServiceStatus status in Enum.GetValues(typeof(ServiceStatus)))
-            {
-                cmbStatus.Items.Add(status);
-            }
-
-            // Surveillance
+            
             chkRequiresMonitoring = new CheckBox
             {
-                Text = "Nécessite une surveillance",
-                Location = new Point(160, 250),
-                Size = new Size(200, 20),
+                Text = "Surveillance requise",
+                Location = new Point(20, 60),
+                Size = new Size(150, 20),
+                BackColor = Color.FromArgb(37, 37, 38),
                 ForeColor = Color.White
             };
             chkRequiresMonitoring.CheckedChanged += ChkRequiresMonitoring_CheckedChanged;
-
-            // URL de surveillance
+            
             Label lblMonitoringUrl = new Label
             {
-                Text = "URL de surveillance:",
-                Location = new Point(20, 280),
+                Text = "URL de surveillance",
+                Location = new Point(180, 60),
                 Size = new Size(120, 20),
                 ForeColor = Color.White
             };
-
+            
             txtMonitoringUrl = new TextBox
             {
-                Location = new Point(160, 280),
-                Size = new Size(350, 20),
-                BackColor = Color.FromArgb(51, 51, 55),
-                ForeColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Produits associés
-            Label lblProducts = new Label
-            {
-                Text = "Produits associés:",
-                Location = new Point(20, 320),
-                Size = new Size(120, 20),
-                ForeColor = Color.White
-            };
-
-            lstSelectedProducts = new ListBox
-            {
-                Location = new Point(160, 320),
-                Size = new Size(350, 100),
+                Location = new Point(300, 60),
+                Size = new Size(220, 20),
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                SelectionMode = SelectionMode.MultiSimple
+                Enabled = false
             };
-
-            // Boutons pour les produits
+            
+            grpSettings.Controls.AddRange(new Control[] {
+                chkActive, chkRequiresMonitoring, lblMonitoringUrl, txtMonitoringUrl
+            });
+            
+            // Produits associés
+            GroupBox grpProducts = new GroupBox
+            {
+                Text = "Produits associés",
+                Location = new Point(20, 360),
+                Size = new Size(540, 200),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(37, 37, 38)
+            };
+            
+            lstProducts = new ListBox
+            {
+                Location = new Point(20, 30),
+                Size = new Size(500, 120),
+                BackColor = Color.FromArgb(30, 30, 30),
+                ForeColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            
             btnAddProduct = new Button
             {
-                Text = "Ajouter",
-                Location = new Point(160, 430),
-                Size = new Size(80, 25),
-                FlatStyle = FlatStyle.Flat,
+                Text = "Ajouter produit",
+                Location = new Point(20, 160),
+                Size = new Size(120, 30),
                 BackColor = Color.FromArgb(0, 122, 204),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
             btnAddProduct.Click += BtnAddProduct_Click;
-
+            
             btnRemoveProduct = new Button
             {
-                Text = "Supprimer",
-                Location = new Point(250, 430),
-                Size = new Size(80, 25),
+                Text = "Retirer produit",
+                Location = new Point(150, 160),
+                Size = new Size(120, 30),
+                BackColor = Color.FromArgb(204, 51, 51),
+                ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(204, 0, 0),
-                ForeColor = Color.White
+                Enabled = false
             };
             btnRemoveProduct.Click += BtnRemoveProduct_Click;
-
-            // Boutons d'action
+            
+            grpProducts.Controls.AddRange(new Control[] { lstProducts, btnAddProduct, btnRemoveProduct });
+            
+            // Boutons de validation
             btnSave = new Button
             {
                 Text = "Enregistrer",
-                DialogResult = DialogResult.OK,
-                Location = new Point(160, 490),
+                Location = new Point(360, 570),
                 Size = new Size(100, 30),
-                FlatStyle = FlatStyle.Flat,
+                DialogResult = DialogResult.OK,
                 BackColor = Color.FromArgb(0, 122, 204),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
             btnSave.Click += BtnSave_Click;
-
+            
             btnCancel = new Button
             {
                 Text = "Annuler",
-                DialogResult = DialogResult.Cancel,
-                Location = new Point(270, 490),
+                Location = new Point(470, 570),
                 Size = new Size(100, 30),
-                FlatStyle = FlatStyle.Flat,
+                DialogResult = DialogResult.Cancel,
                 BackColor = Color.FromArgb(60, 60, 60),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
             btnCancel.Click += BtnCancel_Click;
-
-            // Ajouter les contrôles au formulaire
-            this.Controls.AddRange(new Control[]
-            {
-                lblTitle,
-                lblName, txtName,
-                lblDescription, txtDescription,
-                lblCategory, cmbCategory,
-                lblMonthlyFee, nudMonthlyFee,
-                lblStatus, cmbStatus,
-                chkRequiresMonitoring,
-                lblMonitoringUrl, txtMonitoringUrl,
-                lblProducts, lstSelectedProducts,
-                btnAddProduct, btnRemoveProduct,
+            
+            mainPanel.Controls.AddRange(new Control[] { 
+                grpGeneral, grpSettings, grpProducts,
                 btnSave, btnCancel
             });
+            
+            this.Controls.Add(mainPanel);
+            this.AcceptButton = btnSave;
+            this.CancelButton = btnCancel;
+            
+            // Surveiller les sélections pour activer/désactiver les boutons
+            lstProducts.SelectedIndexChanged += (s, e) => {
+                btnRemoveProduct.Enabled = lstProducts.SelectedIndex >= 0;
+            };
         }
-
+        
         private void PopulateForm()
         {
             txtName.Text = service.Name;
             txtDescription.Text = service.Description;
             cmbCategory.SelectedItem = service.Category;
             nudMonthlyFee.Value = service.MonthlyFee;
-            cmbStatus.SelectedItem = service.Status;
+            chkActive.Checked = service.IsActive;
             chkRequiresMonitoring.Checked = service.RequiresMonitoring;
             txtMonitoringUrl.Text = service.MonitoringUrl;
-
-            // Remplir la liste des produits associés
-            LoadSelectedProducts();
-
-            // État initial du champ URL de surveillance
             txtMonitoringUrl.Enabled = service.RequiresMonitoring;
+            
+            RefreshProductsList();
         }
-
-        private void LoadSelectedProducts()
+        
+        private void RefreshProductsList()
         {
-            lstSelectedProducts.Items.Clear();
-            foreach (var product in service.AssociatedProducts)
+            lstProducts.Items.Clear();
+            
+            if (associatedProducts.Count == 0)
             {
-                Product fullProduct = productManager.GetProductById(product.Id);
-                if (fullProduct != null)
-                {
-                    lstSelectedProducts.Items.Add(fullProduct);
-                }
+                lstProducts.Items.Add("Aucun produit associé");
+                lstProducts.Enabled = false;
+                btnRemoveProduct.Enabled = false;
+                return;
+            }
+            
+            lstProducts.Enabled = true;
+            foreach (Product product in associatedProducts)
+            {
+                lstProducts.Items.Add($"{product.Name} ({product.Price:C2})");
             }
         }
-
+        
         private void ChkRequiresMonitoring_CheckedChanged(object sender, EventArgs e)
         {
             txtMonitoringUrl.Enabled = chkRequiresMonitoring.Checked;
         }
-
+        
         private void BtnAddProduct_Click(object sender, EventArgs e)
         {
-            ProductSelectorForm selector = new ProductSelectorForm(service.AssociatedProducts);
-            if (selector.ShowDialog() == DialogResult.OK)
+            ProductSelectorForm selectorForm = new ProductSelectorForm(associatedProducts);
+            if (selectorForm.ShowDialog() == DialogResult.OK && selectorForm.SelectedProduct != null)
             {
-                foreach (var product in selector.SelectedProducts)
-                {
-                    if (!ContainsProduct(service.AssociatedProducts, product))
-                    {
-                        service.AssociatedProducts.Add(product);
-                    }
-                }
-                LoadSelectedProducts();
+                associatedProducts.Add(selectorForm.SelectedProduct);
+                RefreshProductsList();
             }
         }
-
-        private bool ContainsProduct(List<Product> products, Product product)
-        {
-            foreach (var p in products)
-            {
-                if (p.Id == product.Id)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        
         private void BtnRemoveProduct_Click(object sender, EventArgs e)
         {
-            if (lstSelectedProducts.SelectedItem != null)
+            int selectedIndex = lstProducts.SelectedIndex;
+            if (selectedIndex >= 0 && selectedIndex < associatedProducts.Count)
             {
-                Product product = (Product)lstSelectedProducts.SelectedItem;
-                service.AssociatedProducts.RemoveAll(p => p.Id == product.Id);
-                LoadSelectedProducts();
+                Product productToRemove = associatedProducts[selectedIndex];
+                
+                DialogResult result = MessageBox.Show(
+                    $"Voulez-vous vraiment retirer le produit '{productToRemove.Name}' de ce service ?",
+                    "Confirmation",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+                
+                if (result == DialogResult.Yes)
+                {
+                    associatedProducts.RemoveAt(selectedIndex);
+                    RefreshProductsList();
+                }
             }
         }
-
+        
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            if (!ValidateForm())
             {
-                service.Name = txtName.Text;
-                service.Description = txtDescription.Text;
-                service.Category = (ServiceCategory)cmbCategory.SelectedItem;
-                service.MonthlyFee = nudMonthlyFee.Value;
-                service.Status = (ServiceStatus)cmbStatus.SelectedItem;
-                service.RequiresMonitoring = chkRequiresMonitoring.Checked;
-                service.MonitoringUrl = txtMonitoringUrl.Text;
-
-                bool success;
-                if (isNewService)
-                {
-                    success = serviceManager.AddService(service);
-                }
-                else
-                {
-                    success = serviceManager.UpdateService(service);
-                }
-
-                if (success)
-                {
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Une erreur s'est produite lors de l'enregistrement du service.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                this.DialogResult = DialogResult.None;
+                return;
+            }
+            
+            // Copier les valeurs du formulaire dans l'objet service
+            service.Name = txtName.Text;
+            service.Description = txtDescription.Text;
+            service.Category = (ServiceCategory)cmbCategory.SelectedItem;
+            service.MonthlyFee = nudMonthlyFee.Value;
+            service.IsActive = chkActive.Checked;
+            service.RequiresMonitoring = chkRequiresMonitoring.Checked;
+            service.MonitoringUrl = txtMonitoringUrl.Text;
+            
+            // Mettre à jour la liste des IDs de produits
+            service.ProductIds = associatedProducts.Select(p => p.Id).ToList();
+            
+            // Sauvegarder le service
+            bool success;
+            if (isNewService)
+            {
+                success = serviceManager.AddService(service);
+            }
+            else
+            {
+                success = serviceManager.UpdateService(service);
+            }
+            
+            if (success)
+            {
+                LogManager.LogAction($"Service {(isNewService ? "ajouté" : "mis à jour")} : {service.Name}");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Une erreur est survenue lors de l'enregistrement du service.",
+                    "Erreur",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                this.DialogResult = DialogResult.None;
             }
         }
-
+        
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+        
         private bool ValidateForm()
         {
+            // Valider le nom
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Le nom du service est obligatoire.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtName.Focus();
                 return false;
             }
-
+            
+            // Valider la catégorie
             if (cmbCategory.SelectedItem == null)
             {
                 MessageBox.Show("Veuillez sélectionner une catégorie.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbCategory.Focus();
                 return false;
             }
-
-            if (cmbStatus.SelectedItem == null)
-            {
-                MessageBox.Show("Veuillez sélectionner un statut.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbStatus.Focus();
-                return false;
-            }
-
+            
+            // Valider l'URL de surveillance si nécessaire
             if (chkRequiresMonitoring.Checked && string.IsNullOrWhiteSpace(txtMonitoringUrl.Text))
             {
-                MessageBox.Show("L'URL de surveillance est obligatoire si la surveillance est activée.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("L'URL de surveillance est obligatoire lorsque la surveillance est activée.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtMonitoringUrl.Focus();
                 return false;
             }
-
+            
             return true;
         }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
     }
-
-    // Formulaire de sélection des produits à associer au service
+    
     public class ProductSelectorForm : Form
     {
-        private ProductManager productManager;
         private ListView lvProducts;
         private Button btnOk;
         private Button btnCancel;
-        private List<Product> existingProducts;
-
-        public List<Product> SelectedProducts { get; private set; }
-
-        public ProductSelectorForm(List<Product> existingProducts)
+        private ProductManager productManager;
+        private List<Product> excludedProducts;
+        
+        public Product SelectedProduct { get; private set; }
+        
+        public ProductSelectorForm(List<Product> excludedProducts)
         {
-            this.existingProducts = existingProducts ?? new List<Product>();
-            SelectedProducts = new List<Product>();
-            productManager = new ProductManager();
+            this.productManager = new ProductManager();
+            this.excludedProducts = excludedProducts ?? new List<Product>();
+            this.SelectedProduct = null;
+            
             InitializeComponent();
             LoadProducts();
         }
-
+        
         private void InitializeComponent()
         {
-            this.Size = new Size(600, 400);
-            this.Text = "Viple - Sélectionner des produits";
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Size = new Size(500, 400);
+            this.Text = "Viple - Sélection d'un produit";
+            this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.BackColor = Color.FromArgb(45, 45, 48);
             this.ForeColor = Color.White;
-
-            // ListView des produits
+            
             lvProducts = new ListView
             {
                 Location = new Point(20, 20),
-                Size = new Size(550, 300),
-                CheckBoxes = true,
-                View = View.Details,
-                FullRowSelect = true,
+                Size = new Size(450, 300),
                 BackColor = Color.FromArgb(30, 30, 30),
                 ForeColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                View = View.Details,
+                FullRowSelect = true,
+                MultiSelect = false
             };
-
-            lvProducts.Columns.Add("Nom", 200);
-            lvProducts.Columns.Add("Catégorie", 100);
-            lvProducts.Columns.Add("Version", 80);
-            lvProducts.Columns.Add("Fabricant", 120);
-
-            // Boutons
+            
+            lvProducts.Columns.Add("ID", 0);
+            lvProducts.Columns.Add("Nom", 250);
+            lvProducts.Columns.Add("Prix", 100);
+            lvProducts.Columns.Add("Stock", 80);
+            
             btnOk = new Button
             {
                 Text = "OK",
                 DialogResult = DialogResult.OK,
-                Location = new Point(390, 330),
+                Location = new Point(290, 330),
                 Size = new Size(80, 30),
-                FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(0, 122, 204),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Enabled = false
             };
             btnOk.Click += BtnOk_Click;
-
+            
             btnCancel = new Button
             {
                 Text = "Annuler",
                 DialogResult = DialogResult.Cancel,
-                Location = new Point(480, 330),
+                Location = new Point(380, 330),
                 Size = new Size(80, 30),
-                FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(60, 60, 60),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
-
+            
             this.Controls.AddRange(new Control[] { lvProducts, btnOk, btnCancel });
+            this.AcceptButton = btnOk;
+            this.CancelButton = btnCancel;
+            
+            lvProducts.ItemSelectionChanged += (s, e) => btnOk.Enabled = lvProducts.SelectedItems.Count > 0;
+            lvProducts.DoubleClick += (s, e) => { if (btnOk.Enabled) btnOk.PerformClick(); };
         }
-
+        
         private void LoadProducts()
         {
             lvProducts.Items.Clear();
-            List<Product> products = productManager.GetAllProducts();
-
-            foreach (var product in products)
+            
+            List<Product> availableProducts = productManager.GetAllProducts();
+            
+            // Exclure les produits déjà associés
+            availableProducts = availableProducts.Where(p => !excludedProducts.Any(ep => ep.Id == p.Id)).ToList();
+            
+            foreach (Product product in availableProducts)
             {
-                ListViewItem item = new ListViewItem(product.Name);
-                item.SubItems.Add(product.Category.ToString());
-                item.SubItems.Add(product.Version ?? "N/A");
-                item.SubItems.Add(product.Manufacturer ?? "N/A");
+                ListViewItem item = new ListViewItem(product.Id);
+                item.SubItems.Add(product.Name);
+                item.SubItems.Add($"{product.Price:C2}");
+                item.SubItems.Add(product.StockQuantity.ToString());
                 item.Tag = product;
-                
-                // Vérifier si le produit est déjà associé
-                bool alreadyAssociated = existingProducts.Any(p => p.Id == product.Id);
-                item.Checked = alreadyAssociated;
                 
                 lvProducts.Items.Add(item);
             }
+            
+            if (lvProducts.Items.Count == 0)
+            {
+                MessageBox.Show(
+                    "Tous les produits sont déjà associés à ce service ou aucun produit n'est disponible.",
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
         }
-
+        
         private void BtnOk_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in lvProducts.CheckedItems)
+            if (lvProducts.SelectedItems.Count > 0)
             {
-                Product product = (Product)item.Tag;
-                SelectedProducts.Add(product);
+                SelectedProduct = (Product)lvProducts.SelectedItems[0].Tag;
             }
-            
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
     }
 }

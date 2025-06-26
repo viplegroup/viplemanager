@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Service>
+    <Id>8036fb58-acaf-46eb-8d8b-2301083b381d</Id>
+    <Name>Hébergement Web</Name>
+    <Description>Serveur d'hébergement de sites web</Description>
+    <Category>Hosting</Category>
+    <Status>Running</Status>
+    <IsActive>true</IsActive>
+    <RequiresMonitoring>true</RequiresMonitoring>
+    <MonitoringUrl>https://www.viple.fr/status/web</MonitoringUrl>
+    <MonthlyFee>29.99</MonthlyFee>
+    <LastChecked>2025-06-26T14:32:21.8411539+02:00</LastChecked>
+    <LastStatusMessage>Service répond normalement</LastStatusMessage>
+    <ProductIds />
+    <AssociatedProducts />
+    <CreationDate>2024-12-26T04:15:36.5491691+01:00</CreationDate>
+  </Service>
+  <Service>
+    <Id>e58e537a-b965-47e4-8ddc-5c5df56ac3e6</Id>
+    <Name>Serveur Mail</Name>
+    <Description>Service de messagerie électronique</Description>
+    <Category>Email</Category>
+    <Status>Running</Status>
+    <IsActive>true</IsActive>
+    <RequiresMonitoring>true</RequiresMonitoring>
+    <MonitoringUrl>https://www.viple.fr/status/mail</MonitoringUrl>
+    <MonthlyFee>19.99</MonthlyFee>
+    <LastChecked>2025-06-26T14:32:22.3685981+02:00</LastChecked>
+    <LastStatusMessage>Service répond normalement</LastStatusMessage>
+    <ProductIds />
+    <AssociatedProducts />
+    <CreationDate>2024-10-26T04:15:36.5492013+02:00</CreationDate>
+  </Service>
+  <Service>
+    <Id>4a5bedb8-915b-4ebe-8830-856507659549</Id>
+    <Name>Sauvegarde Cloud</Name>
+    <Description>Service de sauvegarde dans le cloud</Description>
+    <Category>Storage</Category>
+    <Status>Running</Status>
+    <IsActive>true</IsActive>
+    <RequiresMonitoring>true</RequiresMonitoring>
+    <MonitoringUrl>https://www.viple.fr/status/backup</MonitoringUrl>
+    <MonthlyFee>39.99</MonthlyFee>
+    <LastChecked>2025-06-26T14:32:22.8737971+02:00</LastChecked>
+    <LastStatusMessage>Service répond normalement</LastStatusMessage>
+    <ProductIds />
+    <AssociatedProducts />
+    <CreationDate>2025-02-26T04:15:36.5492028+01:00</CreationDate>
+  </Service>
+  <Service>
+    <Id>c636043b-1fe1-43e4-86a0-e5f8267270da</Id>
+    <Name>Support Premium</Name>
+    <Description>Service de support technique dédié</Description>
+    <Category>Support</Category>
+    <Status>Running</Status>
+    <IsActive>true</IsActive>
+    <RequiresMonitoring>false</RequiresMonitoring>
+    <MonitoringUrl />
+    <MonthlyFee>99.99</MonthlyFee>
+    <LastChecked>2025-06-25T04:15:36.5492039+02:00</LastChecked>
+    <LastStatusMessage>Service géré manuellement</LastStatusMessage>
+    <ProductIds />
+    <AssociatedProducts />
+    <CreationDate>2025-04-26T04:15:36.5492044+02:00</CreationDate>
+  </Service>
+</ArrayOfService>

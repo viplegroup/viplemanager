@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUserAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UserAction>
+    <Id>0ed11e4e-a0f3-4285-9f9e-647642123493</Id>
+    <UserId>30b502f1-349c-4cda-8eae-69655ad9fc9c</UserId>
+    <ActionType>USER_LOGIN</ActionType>
+    <Description>Utilisateur 'admin' connecté</Description>
+    <Timestamp>2025-06-26T04:15:24.3806187+02:00</Timestamp>
+    <EntityId>30b502f1-349c-4cda-8eae-69655ad9fc9c</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>453fc849-b869-467f-93cf-98f60d80d5cb</Id>
+    <UserId>30b502f1-349c-4cda-8eae-69655ad9fc9c</UserId>
+    <ActionType>USER_LOGOUT</ActionType>
+    <Description>Utilisateur 'admin' déconnecté</Description>
+    <Timestamp>2025-06-26T04:16:36.5997548+02:00</Timestamp>
+    <EntityId>30b502f1-349c-4cda-8eae-69655ad9fc9c</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>686de698-4f1a-42e2-b26a-3cf38c2f879e</Id>
+    <UserId>0742af71-08c6-4127-b83f-70c076ccd47c</UserId>
+    <ActionType>USER_LOGIN</ActionType>
+    <Description>Utilisateur 'admin' connecté</Description>
+    <Timestamp>2025-06-26T04:16:49.3820066+02:00</Timestamp>
+    <EntityId>0742af71-08c6-4127-b83f-70c076ccd47c</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>113e0f4e-cf04-4256-94ab-c5fa177919b4</Id>
+    <UserId>a7e91aad-faac-417e-b8ca-9ed1982388df</UserId>
+    <ActionType>USER_LOGIN</ActionType>
+    <Description>Utilisateur 'admin' connecté</Description>
+    <Timestamp>2025-06-26T04:18:06.5546029+02:00</Timestamp>
+    <EntityId>a7e91aad-faac-417e-b8ca-9ed1982388df</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>509fde15-64ea-45ef-8aaf-7870c570bdae</Id>
+    <UserId>a7e91aad-faac-417e-b8ca-9ed1982388df</UserId>
+    <ActionType>USER_LOGOUT</ActionType>
+    <Description>Utilisateur 'admin' déconnecté</Description>
+    <Timestamp>2025-06-26T04:18:16.0726868+02:00</Timestamp>
+    <EntityId>a7e91aad-faac-417e-b8ca-9ed1982388df</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>be1bc01d-7922-4101-a342-9ba91f48490f</Id>
+    <UserId>5c19cf2a-be8f-4dd9-94e0-df30fa35835c</UserId>
+    <ActionType>USER_LOGIN</ActionType>
+    <Description>Utilisateur 'admin' connecté</Description>
+    <Timestamp>2025-06-26T14:31:38.9565548+02:00</Timestamp>
+    <EntityId>5c19cf2a-be8f-4dd9-94e0-df30fa35835c</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+  <UserAction>
+    <Id>e72a8a2b-e4a5-44d6-89aa-b9320fccf1b5</Id>
+    <UserId>5c19cf2a-be8f-4dd9-94e0-df30fa35835c</UserId>
+    <ActionType>USER_LOGOUT</ActionType>
+    <Description>Utilisateur 'admin' déconnecté</Description>
+    <Timestamp>2025-06-26T14:32:29.8454699+02:00</Timestamp>
+    <EntityId>5c19cf2a-be8f-4dd9-94e0-df30fa35835c</EntityId>
+    <EntityType>User</EntityType>
+    <IpAddress>127.0.0.1</IpAddress>
+  </UserAction>
+</ArrayOfUserAction>

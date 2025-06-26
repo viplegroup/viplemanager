@@ -1,0 +1,203 @@
+﻿[2025-06-26 04:13:36.344] [STARTUP] [1] Application démarrée
+[2025-06-26 04:13:36.348] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 04:13:36.351] [ACTION] [1] Police extraite: Roboto-Regular.ttf
+[2025-06-26 04:13:36.354] [ACTION] [1] Police extraite: Roboto-Bold.ttf
+[2025-06-26 04:13:36.356] [ACTION] [1] Police extraite: OpenSans-Regular.ttf
+[2025-06-26 04:13:36.357] [ACTION] [1] Police extraite: JetBrainsMono-Regular.ttf
+[2025-06-26 04:13:36.359] [ACTION] [1] Police extraite: Hack-Regular.ttf
+[2025-06-26 04:13:36.360] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:13:36.362] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:13:36.369] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 04:13:36.372] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 04:13:36.374] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 04:13:36.376] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 04:13:36.378] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 04:13:36.380] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 04:13:36.381] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 04:13:36.381] [ACTION] [1] Ressources initialisées
+[2025-06-26 04:13:45.554] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 04:13:45.635] [ACTION] [1] Tentative d'authentification échouée: mot de passe incorrect pour 'admin'
+[2025-06-26 04:15:20.079] [STARTUP] [1] Application démarrée
+[2025-06-26 04:15:20.083] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 04:15:20.086] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:15:20.087] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:15:20.094] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 04:15:20.097] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 04:15:20.099] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 04:15:20.102] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 04:15:20.104] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 04:15:20.106] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 04:15:20.107] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 04:15:20.107] [ACTION] [1] Ressources initialisées
+[2025-06-26 04:15:24.318] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:15:24.377] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 04:15:24.392] [ACTION] [1] Utilisateur 'admin' authentifié avec succès
+[2025-06-26 04:15:44.278] [ACTION] [1] État des services chargé
+[2025-06-26 04:15:46.942] [ACTION] [1] Service vérifié: 8036fb58-acaf-46eb-8d8b-2301083b381d - Statut: False
+[2025-06-26 04:15:50.418] [ACTION] [1] État des services chargé
+[2025-06-26 04:15:52.750] [ACTION] [1] État des services chargé
+[2025-06-26 04:15:57.841] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:00.011] [ACTION] [1] Liens enregistrés
+[2025-06-26 04:16:04.249] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:06.005] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:28.538] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 04:16:28.542] [ACTION] [1] Utilisateur 'view' créé avec succès
+[2025-06-26 04:16:28.543] [ACTION] [1] Utilisateur 'view' créé avec succès
+[2025-06-26 04:16:30.580] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:36.601] [ACTION] [1] Utilisateur 'admin' déconnecté
+[2025-06-26 04:16:39.653] [STARTUP] [1] Application démarrée
+[2025-06-26 04:16:39.657] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 04:16:39.659] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:16:39.660] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:16:39.667] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 04:16:39.670] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 04:16:39.673] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 04:16:39.675] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 04:16:39.677] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 04:16:39.679] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 04:16:39.680] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 04:16:39.680] [ACTION] [1] Ressources initialisées
+[2025-06-26 04:16:43.715] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:43.767] [ACTION] [1] Tentative d'authentification échouée: utilisateur 'view' introuvable
+[2025-06-26 04:16:49.380] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 04:16:49.392] [ACTION] [1] Utilisateur 'admin' authentifié avec succès
+[2025-06-26 04:16:55.422] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:16:58.513] [ACTION] [1] État des services chargé
+[2025-06-26 04:17:56.568] [STARTUP] [1] Application démarrée
+[2025-06-26 04:17:56.576] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 04:17:56.579] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:17:56.581] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:17:56.589] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 04:17:56.592] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 04:17:56.595] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 04:17:56.597] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 04:17:56.600] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 04:17:56.601] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 04:17:56.602] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 04:17:56.603] [ACTION] [1] Ressources initialisées
+[2025-06-26 04:18:00.819] [STARTUP] [1] Application démarrée
+[2025-06-26 04:18:00.824] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 04:18:00.827] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:18:00.828] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 04:18:00.836] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 04:18:00.839] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 04:18:00.842] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 04:18:00.845] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 04:18:00.847] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 04:18:00.849] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 04:18:00.850] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 04:18:00.851] [ACTION] [1] Ressources initialisées
+[2025-06-26 04:18:06.483] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 04:18:06.553] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 04:18:06.563] [ACTION] [1] Utilisateur 'admin' authentifié avec succès
+[2025-06-26 04:18:08.845] [ACTION] [1] État des services chargé
+[2025-06-26 04:18:12.388] [ACTION] [1] État des services chargé
+[2025-06-26 04:18:13.640] [ACTION] [1] État des services chargé
+[2025-06-26 04:18:16.075] [ACTION] [1] Utilisateur 'admin' déconnecté
+[2025-06-26 14:31:22.146] [STARTUP] [1] Application démarrée
+[2025-06-26 14:31:22.152] [ACTION] [1] Répertoire de polices créé ou vérifié
+[2025-06-26 14:31:22.156] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 14:31:22.158] [ACTION] [1] Toutes les polices ont été extraites avec succès
+[2025-06-26 14:31:22.168] [ACTION] [1] Police chargée: Hack-Regular.ttf
+[2025-06-26 14:31:22.171] [ACTION] [1] Police chargée: JetBrainsMono-Regular.ttf
+[2025-06-26 14:31:22.173] [ACTION] [1] Police chargée: OpenSans-Regular.ttf
+[2025-06-26 14:31:22.175] [ACTION] [1] Police chargée: Roboto-Bold.ttf
+[2025-06-26 14:31:22.178] [ACTION] [1] Police chargée: Roboto-Regular.ttf
+[2025-06-26 14:31:22.180] [ACTION] [1] Polices spécifiques assignées
+[2025-06-26 14:31:22.180] [ACTION] [1] Polices personnalisées chargées avec succès
+[2025-06-26 14:31:22.181] [ACTION] [1] Ressources initialisées
+[2025-06-26 14:31:38.862] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 14:31:38.955] [ERROR] [1] Erreur lors de l'enregistrement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.SaveUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 528
+[2025-06-26 14:31:38.967] [ACTION] [1] Utilisateur 'admin' authentifié avec succès
+[2025-06-26 14:31:46.607] [ACTION] [1] État des services chargé
+[2025-06-26 14:31:54.849] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 14:32:16.430] [ERROR] [1] Erreur lors du chargement des utilisateurs: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | Exception: InvalidOperationException | Message: There was an error reflecting type 'System.Collections.Generic.List`1[VipleManagement.Models.User]'. | StackTrace:    at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(TypeModel model, String ns, ImportContext context, String dataType, XmlAttributes a, Boolean repeats, Boolean openModel, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportElement(TypeModel model, XmlRootAttribute root, String defaultNamespace, RecursionLimiter limiter)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type)
+   at VipleManagement.Services.UserManager.LoadUsers() in C:\Users\elioslocal\Downloads\viplemanager-main\viplemanager-main\Services\UserManager.cs:line 500
+[2025-06-26 14:32:19.134] [ACTION] [1] État des services chargé
+[2025-06-26 14:32:23.489] [ACTION] [1] État des services chargé
+[2025-06-26 14:32:23.490] [ACTION] [1] Tous les services ont été vérifiés
+[2025-06-26 14:32:29.850] [ACTION] [1] Utilisateur 'admin' déconnecté

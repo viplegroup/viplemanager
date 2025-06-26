@@ -1,179 +1,133 @@
-// Viple FilesVersion - AuthenticationManager 1.0.0 - Date 25/06/2025
+// Viple FilesVersion - AuthenticationManager 1.0.0 - Date 26/06/2025 01:50
 // Application créée par Viple SAS
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+using VipleManagement.Models;
+using VipleManagement.Services;
 
-namespace VipleManagement
+namespace VipleManagement.Core
 {
+    /// <summary>
+    /// Gestionnaire d'authentification
+    /// </summary>
     public static class AuthenticationManager
     {
-        private static string currentUser = "";
-        private static UserRole currentUserRole = UserRole.Employee;
-        private static Dictionary<string, UserInfo> users;
-        private static string usersFilePath = Path.Combine("vipledata", "users.vff");
-
+        private static UserManager userManager;
+        
+        /// <summary>
+        /// Utilisateur actuellement connecté
+        /// </summary>
+        public static User CurrentUser { get; private set; }
+        
+        /// <summary>
+        /// Indique si un utilisateur est connecté
+        /// </summary>
+        public static bool IsLoggedIn => CurrentUser != null;
+        
+        /// <summary>
+        /// Événement déclenché lors de la connexion d'un utilisateur
+        /// </summary>
+        public static event EventHandler<User> UserLoggedIn;
+        
+        /// <summary>
+        /// Événement déclenché lors de la déconnexion d'un utilisateur
+        /// </summary>
+        public static event EventHandler UserLoggedOut;
+        
+        /// <summary>
+        /// Initialiser le gestionnaire d'authentification
+        /// </summary>
         static AuthenticationManager()
         {
-            LoadUsers();
+            userManager = new UserManager();
         }
-
-        public static bool Authenticate(string username, string password)
+        
+        /// <summary>
+        /// Authentifier un utilisateur
+        /// </summary>
+        public static bool Login(string username, string password)
         {
-            if (users.ContainsKey(username))
+            // Authentifier l'utilisateur
+            if (userManager.AuthenticateUser(username, password))
             {
-                string hashedPassword = HashPassword(password);
-                if (users[username].Password == hashedPassword)
-                {
-                    currentUser = username;
-                    currentUserRole = users[username].Role;
-                    SaveLoginSession();
-                    return true;
-                }
+                // Récupérer l'utilisateur
+                CurrentUser = userManager.GetUserByUsername(username);
+                
+                // Déclencher l'événement
+                UserLoggedIn?.Invoke(null, CurrentUser);
+                
+                return true;
             }
+            
             return false;
         }
-
-        public static bool IsUserLoggedIn()
-        {
-            string sessionFile = Path.Combine("vipledata", "session.vff");
-            return File.Exists(sessionFile);
-        }
-
-        public static string GetCurrentUser()
-        {
-            return currentUser;
-        }
-
-        public static UserRole GetCurrentUserRole()
-        {
-            return currentUserRole;
-        }
-
-        private static void LoadUsers()
-        {
-            users = new Dictionary<string, UserInfo>();
-            
-            // Créer le dossier si nécessaire
-            Directory.CreateDirectory("vipledata");
-            
-            if (File.Exists(usersFilePath))
-            {
-                string[] lines = File.ReadAllLines(usersFilePath);
-                foreach (string line in lines)
-                {
-                    if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
-                    {
-                        string[] parts = line.Split('|');
-                        if (parts.Length >= 3)
-                        {
-                            UserRole role = (UserRole)Enum.Parse(typeof(UserRole), parts[2]);
-                            users[parts[0]] = new UserInfo
-                            {
-                                Username = parts[0],
-                                Password = parts[1],
-                                Role = role
-                            };
-                        }
-                    }
-                }
-            }
-            else
-            {
-                CreateDefaultUsers();
-            }
-        }
-
-        private static void CreateDefaultUsers()
-        {
-            // Créer des utilisateurs par défaut
-            users["admin"] = new UserInfo
-            {
-                Username = "admin",
-                Password = HashPassword("admin123"),
-                Role = UserRole.Administrator
-            };
-
-            users["manager"] = new UserInfo
-            {
-                Username = "manager",
-                Password = HashPassword("manager123"),
-                Role = UserRole.Manager
-            };
-
-            users["employee"] = new UserInfo
-            {
-                Username = "employee",
-                Password = HashPassword("emp123"),
-                Role = UserRole.Employee
-            };
-
-            SaveUsers();
-        }
-
-        private static void SaveUsers()
-        {
-            List<string> lines = new List<string>
-            {
-                "# Viple Users File Format (.vff)",
-                "# Format: username|hashedpassword|role",
-                "# Créé par Viple SAS"
-            };
-
-            foreach (var user in users.Values)
-            {
-                lines.Add($"{user.Username}|{user.Password}|{user.Role}");
-            }
-
-            File.WriteAllLines(usersFilePath, lines);
-        }
-
-        private static void SaveLoginSession()
-        {
-            string sessionData = $"user={currentUser}\nrole={currentUserRole}\nlogintime={DateTime.Now:yyyy-MM-dd HH:mm:ss}";
-            File.WriteAllText(Path.Combine("vipledata", "session.vff"), sessionData);
-        }
-
-        private static string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
+        
+        /// <summary>
+        /// Déconnecter l'utilisateur actuel
+        /// </summary>
         public static void Logout()
         {
-            currentUser = "";
-            currentUserRole = UserRole.Employee;
-            string sessionFile = Path.Combine("vipledata", "session.vff");
-            if (File.Exists(sessionFile))
+            if (CurrentUser != null)
             {
-                File.Delete(sessionFile);
+                userManager.LogoutUser(CurrentUser.Id);
+                
+                // Déconnecter l'utilisateur
+                CurrentUser = null;
+                
+                // Déclencher l'événement
+                UserLoggedOut?.Invoke(null, EventArgs.Empty);
             }
         }
-    }
-
-    public class UserInfo
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public UserRole Role { get; set; }
-    }
-
-    public enum UserRole
-    {
-        Employee,
-        Manager,
-        Administrator
+        
+        /// <summary>
+        /// Vérifier si l'utilisateur courant a un certain rôle
+        /// </summary>
+        public static bool HasRole(UserRole role)
+        {
+            return CurrentUser != null && CurrentUser.Role == role;
+        }
+        
+        /// <summary>
+        /// Vérifier si l'utilisateur courant peut gérer les clients
+        /// </summary>
+        public static bool CanManageClients()
+        {
+            return CurrentUser != null && CurrentUser.CanManageClients();
+        }
+        
+        /// <summary>
+        /// Vérifier si l'utilisateur courant peut gérer les services
+        /// </summary>
+        public static bool CanManageServices()
+        {
+            return CurrentUser != null && CurrentUser.CanManageServices();
+        }
+        
+        /// <summary>
+        /// Vérifier si l'utilisateur courant peut gérer les produits
+        /// </summary>
+        public static bool CanManageProducts()
+        {
+            return CurrentUser != null && CurrentUser.CanManageProducts();
+        }
+        
+        /// <summary>
+        /// Vérifier si l'utilisateur courant peut gérer les utilisateurs
+        /// </summary>
+        public static bool CanManageUsers()
+        {
+            return CurrentUser != null && CurrentUser.CanManageUsers();
+        }
+        
+        /// <summary>
+        /// Journaliser une action de l'utilisateur courant
+        /// </summary>
+        public static void LogUserAction(string actionType, string description, string entityId = "", string entityType = "")
+        {
+            if (CurrentUser != null)
+            {
+                userManager.LogUserAction(actionType, description, entityId, entityType, CurrentUser.Id);
+            }
+        }
     }
 }

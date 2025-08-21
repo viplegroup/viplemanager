@@ -88,7 +88,7 @@ namespace VipleManagement.Forms
             Label lblTitle = new Label
             {
                 Text = isNewUser ? "Ajouter un utilisateur" : "Modifier un utilisateur",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 Size = new Size(460, 30),
                 Location = new Point(20, 20),
                 TextAlign = ContentAlignment.MiddleCenter
@@ -110,7 +110,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
             txtUsername.TextChanged += ValidateForm;
             
@@ -130,7 +130,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 9),
+                Font = ResourceLoader.VipleRegular,
                 UseSystemPasswordChar = true
             };
             txtPassword.TextChanged += ValidateForm;
@@ -151,7 +151,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 9),
+                Font = ResourceLoader.VipleRegular,
                 UseSystemPasswordChar = true
             };
             txtConfirmPassword.TextChanged += ValidateForm;
@@ -162,7 +162,7 @@ namespace VipleManagement.Forms
                 Text = isNewUser ? "Le mot de passe est obligatoire" : "Laissez vide pour ne pas modifier",
                 Size = new Size(300, 20),
                 Location = new Point(170, 180),
-                Font = new Font("Segoe UI", 8),
+                Font = ResourceLoader.VipleLight,
                 ForeColor = Color.Silver
             };
             
@@ -182,7 +182,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
             txtFullName.TextChanged += ValidateForm;
             
@@ -202,7 +202,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
             txtEmail.TextChanged += ValidateForm;
             
@@ -222,7 +222,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
             foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
             {

@@ -130,7 +130,7 @@ namespace VipleManagement.Forms.Links
                 Text = "Aperçu du lien",
                 Dock = DockStyle.Top,
                 Height = 30,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = Color.White
             };
 

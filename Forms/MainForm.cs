@@ -76,7 +76,7 @@ namespace VipleManagement.Forms
             {
                 Location = new Point(10, 130),
                 Size = new Size(230, 40),
-                Font = new Font("Segoe UI", 9),
+                Font = ResourceLoader.VipleRegular,
                 TextAlign = ContentAlignment.MiddleLeft,
                 ForeColor = Color.LightGray
             };
@@ -158,7 +158,7 @@ namespace VipleManagement.Forms
                 Size = new Size(250, 45),
                 Location = new Point(0, 180 + index * 50),
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10),
+                Font = ResourceLoader.VipleRegular,
                 BackColor = Color.FromArgb(45, 45, 48),
                 ForeColor = Color.White,
                 Image = null,
@@ -256,7 +256,7 @@ namespace VipleManagement.Forms
             Label lblTitle = new Label
             {
                 Text = "Tableau de bord",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                Font = ResourceLoader.VipleHeader,
                 ForeColor = Color.White,
                 Size = new Size(400, 40),
                 Location = new Point(20, 20)
@@ -265,7 +265,7 @@ namespace VipleManagement.Forms
             Label lblWelcome = new Label
             {
                 Text = $"Bienvenue, {AuthenticationManager.CurrentUser?.FullName}",
-                Font = new Font("Segoe UI", 12),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = Color.LightGray,
                 Size = new Size(400, 30),
                 Location = new Point(20, 70)
@@ -292,7 +292,7 @@ namespace VipleManagement.Forms
             Label lblTitle = new Label
             {
                 Text = "Paramètres",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                Font = ResourceLoader.VipleHeader,
                 ForeColor = Color.White,
                 Size = new Size(400, 40),
                 Location = new Point(20, 20)
@@ -319,7 +319,7 @@ namespace VipleManagement.Forms
             Label lblTitle = new Label
             {
                 Text = "Gestion des produits",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                Font = ResourceLoader.VipleHeader,
                 ForeColor = Color.White,
                 Size = new Size(400, 40),
                 Location = new Point(20, 20)

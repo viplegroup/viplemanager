@@ -243,7 +243,7 @@ namespace VipleManagement.Forms.Clients
             dgvClients.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 48);
             dgvClients.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgvClients.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvClients.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            dgvClients.ColumnHeadersDefaultCellStyle.Font = ResourceLoader.VipleBold;
             dgvClients.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dgvClients.ColumnHeadersHeight = 35;
 
@@ -251,7 +251,7 @@ namespace VipleManagement.Forms.Clients
             dgvClients.DefaultCellStyle.ForeColor = Color.White;
             dgvClients.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
             dgvClients.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvClients.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dgvClients.DefaultCellStyle.Font = ResourceLoader.VipleRegular;
             dgvClients.GridColor = Color.FromArgb(51, 51, 55);
             dgvClients.RowTemplate.Height = 25;
 

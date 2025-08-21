@@ -174,7 +174,7 @@ namespace VipleManagement.Forms.Services
                 Location = new Point(10, 10),
                 Size = new Size(280, 25),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                Font = ResourceLoader.VipleTitle
             };
 
             // Catégorie
@@ -184,7 +184,7 @@ namespace VipleManagement.Forms.Services
                 Location = new Point(10, 40),
                 Size = new Size(280, 20),
                 ForeColor = Color.Silver,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
 
             // Statut
@@ -208,7 +208,7 @@ namespace VipleManagement.Forms.Services
                 Location = new Point(40, 5),
                 Size = new Size(230, 20),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9)
+                Font = ResourceLoader.VipleRegular
             };
 
             statusPanel.Controls.AddRange(new Control[] { statusIndicator, lblStatus });
@@ -220,7 +220,7 @@ namespace VipleManagement.Forms.Services
                 Location = new Point(10, 100),
                 Size = new Size(280, 20),
                 ForeColor = Color.Silver,
-                Font = new Font("Segoe UI", 8)
+                Font = ResourceLoader.VipleLight
             };
 
             // Message de statut
@@ -230,7 +230,7 @@ namespace VipleManagement.Forms.Services
                 Location = new Point(10, 120),
                 Size = new Size(280, 20),
                 ForeColor = Color.Silver,
-                Font = new Font("Segoe UI", 8)
+                Font = ResourceLoader.VipleLight
             };
 
             // Menu contextuel pour le changement de statut manuel

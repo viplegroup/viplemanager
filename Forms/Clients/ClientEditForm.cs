@@ -111,7 +111,7 @@ namespace VipleManagement.Forms.Clients
             Label lblTitle1 = new Label
             {
                 Text = "Informations générales",
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = Color.White,
                 Location = new Point(10, 10),
                 Size = new Size(300, 30)
@@ -299,7 +299,7 @@ namespace VipleManagement.Forms.Clients
             Label lblTitle2 = new Label
             {
                 Text = "Informations avancées",
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = Color.White,
                 Location = new Point(10, 10),
                 Size = new Size(300, 30)

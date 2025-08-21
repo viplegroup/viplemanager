@@ -75,7 +75,7 @@ namespace VipleManagement.Forms.Services
             lblName = new Label
             {
                 Text = service.Name,
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Font = ResourceLoader.VipleHeader,
                 ForeColor = Color.White,
                 Location = new Point(20, 15),
                 Size = new Size(400, 30),
@@ -93,7 +93,7 @@ namespace VipleManagement.Forms.Services
             lblStatus = new Label
             {
                 Text = GetStatusText(service.Status),
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = GetStatusColor(service.Status),
                 Location = new Point(470, 15),
                 Size = new Size(200, 30),
@@ -127,7 +127,7 @@ namespace VipleManagement.Forms.Services
             Label lblCategoryTitle = new Label
             {
                 Text = "Catégorie:",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = ResourceLoader.VipleBold,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -136,7 +136,7 @@ namespace VipleManagement.Forms.Services
             lblCategory = new Label
             {
                 Text = service.Category.ToString(),
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = ResourceLoader.VipleRegular,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -146,7 +146,7 @@ namespace VipleManagement.Forms.Services
             Label lblDescriptionTitle = new Label
             {
                 Text = "Description:",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = ResourceLoader.VipleBold,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -155,7 +155,7 @@ namespace VipleManagement.Forms.Services
             lblDescription = new Label
             {
                 Text = service.Description,
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = ResourceLoader.VipleRegular,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -165,7 +165,7 @@ namespace VipleManagement.Forms.Services
             Label lblLastCheckTitle = new Label
             {
                 Text = "Dernière vérification:",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = ResourceLoader.VipleBold,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -174,7 +174,7 @@ namespace VipleManagement.Forms.Services
             lblLastCheck = new Label
             {
                 Text = service.LastChecked.ToString("dd/MM/yyyy HH:mm:ss"),
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = ResourceLoader.VipleRegular,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -184,7 +184,7 @@ namespace VipleManagement.Forms.Services
             Label lblLastMessageTitle = new Label
             {
                 Text = "Dernier message:",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = ResourceLoader.VipleBold,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -193,7 +193,7 @@ namespace VipleManagement.Forms.Services
             lblLastMessage = new Label
             {
                 Text = service.LastStatusMessage,
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = ResourceLoader.VipleRegular,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -203,7 +203,7 @@ namespace VipleManagement.Forms.Services
             Label lblMonthlyFeeTitle = new Label
             {
                 Text = "Prix mensuel:",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = ResourceLoader.VipleBold,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -212,7 +212,7 @@ namespace VipleManagement.Forms.Services
             lblMonthlyFee = new Label
             {
                 Text = service.MonthlyFee.ToString("C2"),
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = ResourceLoader.VipleRegular,
                 ForeColor = Color.White,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -303,7 +303,7 @@ namespace VipleManagement.Forms.Services
                 BackColor = Color.FromArgb(30, 30, 30),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.None,
-                Font = new Font("Segoe UI", 9, FontStyle.Regular)
+                Font = ResourceLoader.VipleRegular
             };
             
             clientsTab.Controls.Add(lstClients);
@@ -318,7 +318,7 @@ namespace VipleManagement.Forms.Services
                 BackColor = Color.FromArgb(30, 30, 30),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.None,
-                Font = new Font("Segoe UI", 9, FontStyle.Regular)
+                Font = ResourceLoader.VipleRegular
             };
             
             productsTab.Controls.Add(lstProducts);

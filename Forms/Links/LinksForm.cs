@@ -130,7 +130,7 @@ namespace VipleManagement.Forms.Links
                 Text = "Aperçu du lien",
                 Dock = DockStyle.Top,
                 Height = 30,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = ResourceLoader.VipleTitle,
                 ForeColor = Color.White
             };
 
@@ -296,7 +296,7 @@ namespace VipleManagement.Forms.Links
             btnOpen.Enabled = false;
             
             // Effacer la prévisualisation
-            webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Segoe UI; text-align:center; padding-top:50px;'><h2>Sélectionnez un lien pour afficher un aperçu</h2></body></html>";
+            webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Roboto, Arial, sans-serif; text-align:center; padding-top:50px;'><h2>Sélectionnez un lien pour afficher un aperçu</h2></body></html>";
         }
 
         private void LvLinks_SelectedIndexChanged(object sender, EventArgs e)
@@ -316,7 +316,7 @@ namespace VipleManagement.Forms.Links
                 }
                 catch (Exception)
                 {
-                    webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Segoe UI; text-align:center; padding-top:50px;'><h2>Impossible d'afficher l'aperçu de ce lien</h2></body></html>";
+                    webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Roboto, Arial, sans-serif; text-align:center; padding-top:50px;'><h2>Impossible d'afficher l'aperçu de ce lien</h2></body></html>";
                 }
             }
             else
@@ -326,7 +326,7 @@ namespace VipleManagement.Forms.Links
                 btnOpen.Enabled = false;
                 
                 // Effacer la prévisualisation
-                webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Segoe UI; text-align:center; padding-top:50px;'><h2>Sélectionnez un lien pour afficher un aperçu</h2></body></html>";
+                webPreview.DocumentText = "<html><body style='background-color:#1E1E1E; color:white; font-family:Roboto, Arial, sans-serif; text-align:center; padding-top:50px;'><h2>Sélectionnez un lien pour afficher un aperçu</h2></body></html>";
             }
         }
 

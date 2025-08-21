@@ -71,7 +71,7 @@ namespace VipleManagement.Forms
             Label lblTitle = new Label
             {
                 Text = "VIPLE MANAGEMENT",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Font = ResourceLoader.VipleHeader,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(380, 30),
                 Location = new Point(10, 230),
@@ -83,7 +83,7 @@ namespace VipleManagement.Forms
             Label lblSubTitle = new Label
             {
                 Text = "Système de gestion des services",
-                Font = new Font("Segoe UI", 10),
+                Font = ResourceLoader.VipleRegular,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(380, 20),
                 Location = new Point(10, 260),
@@ -108,7 +108,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 10)
+                Font = ResourceLoader.VipleRegular
             };
             
             // Mot de passe
@@ -128,7 +128,7 @@ namespace VipleManagement.Forms
                 BackColor = Color.FromArgb(51, 51, 55),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 10),
+                Font = ResourceLoader.VipleRegular,
                 UseSystemPasswordChar = true
             };
             

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using VipleManagement.Models;
 using VipleManagement.Services;
+using VipleManagement.Core;
 
 namespace VipleManagement.Forms
 {
@@ -144,7 +145,7 @@ namespace VipleManagement.Forms
             dgvActions.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
             dgvActions.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvActions.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 48);
-            dgvActions.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            dgvActions.ColumnHeadersDefaultCellStyle.Font = ResourceLoader.VipleBold;
             dgvActions.ColumnHeadersHeight = 30;
             dgvActions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             
@@ -152,7 +153,7 @@ namespace VipleManagement.Forms
             dgvActions.DefaultCellStyle.ForeColor = Color.White;
             dgvActions.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 122, 204);
             dgvActions.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvActions.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvActions.DefaultCellStyle.Font = ResourceLoader.VipleRegular;
             
             dgvActions.Columns.Add("Timestamp", "Date et heure");
             dgvActions.Columns.Add("ActionType", "Type d'action");

@@ -127,7 +127,7 @@ namespace VipleManagement.Forms
             dgvUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
             dgvUsers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvUsers.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 48);
-            dgvUsers.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            dgvUsers.ColumnHeadersDefaultCellStyle.Font = ResourceLoader.VipleBold;
             dgvUsers.ColumnHeadersHeight = 30;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             
@@ -135,7 +135,7 @@ namespace VipleManagement.Forms
             dgvUsers.DefaultCellStyle.ForeColor = Color.White;
             dgvUsers.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 122, 204);
             dgvUsers.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvUsers.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvUsers.DefaultCellStyle.Font = ResourceLoader.VipleRegular;
             
             dgvUsers.Columns.Add("Id", "ID");
             dgvUsers.Columns.Add("Username", "Nom d'utilisateur");

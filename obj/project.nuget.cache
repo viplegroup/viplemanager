@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "8wvYpk5NKh8=",
+  "dgSpecHash": "jAQOUCuLWXxizJILxCjVtszut3xEFgdCnUWg749P9xF66ndZGSKNChEMAXi8cdG11dzR0XwoHxiKk0hmse6PRg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\elioslocal\\Downloads\\viplemanager-main\\viplemanager-main\\VipleManagement.csproj",
+  "projectFilePath": "/home/runner/work/viplemanager/viplemanager/VipleManagement.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\elioslocal\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\elioslocal\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\elioslocal\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\elioslocal\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.36\\microsoft.netcore.app.host.win-x64.6.0.36.nupkg.sha512"
+    "/home/runner/.nuget/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.36/microsoft.netcore.app.host.linux-x64.6.0.36.nupkg.sha512"
   ],
   "logs": []
 }

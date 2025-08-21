@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\elioslocal\\.nuget\\packages\\": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\elioslocal\\Downloads\\viplemanager-main\\viplemanager-main\\VipleManagement.csproj",
+      "projectUniqueName": "/home/runner/work/viplemanager/viplemanager/VipleManagement.csproj",
       "projectName": "VipleManagement",
-      "projectPath": "C:\\Users\\elioslocal\\Downloads\\viplemanager-main\\viplemanager-main\\VipleManagement.csproj",
-      "packagesPath": "C:\\Users\\elioslocal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\elioslocal\\Downloads\\viplemanager-main\\viplemanager-main\\obj\\",
+      "projectPath": "/home/runner/work/viplemanager/viplemanager/VipleManagement.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/viplemanager/viplemanager/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\elioslocal\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
@@ -38,13 +38,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net6.0-windows7.0": {
@@ -66,27 +60,20 @@
             "version": "[6.0.36, 6.0.36]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "name": "Microsoft.NETCore.App.Host.linux-x64",
             "version": "[6.0.36, 6.0.36]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
             "version": "[6.0.36, 6.0.36]"
           }
         ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.119/RuntimeIdentifierGraph.json"
       }
     }
   }
